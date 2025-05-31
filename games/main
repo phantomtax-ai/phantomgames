@@ -4,15 +4,15 @@
   </head>
   <body>
     <button style="font-size: 24px; font-weight: bold; border-radius: 12px; height: 200px; width: 1600px; background-color: black; color: purple;">Home
-    <a href="/index.html"></a>
+    <a href="phantom-games.netlify.app/index.html"></a>
     </button>
     <button style="font-size: 24px; font-weight: bold; border-radius: 12px; height: 200px; width: 1600px; background-color: black; color: purple;">Minecraft
-    <a href="/games/minecraft.html"></a>
+    <a href="phantom-games.netlify.app/games/minecraft.html"></a>
     </button>
     <button style="font-size: 24px; font-weight: bold; border-radius: 12px; height: 200px; width: 1600px; background-color: black; color: purple;">OvO
-    <a href="/games/ovo.html"></a>
+    <a href="phantom-games.netlify.app/games/ovo.html"></a>
       <button style="font-size: 24px; font-weight: bold; border-radius: 12px; height: 200px; width: 1600px; background-color: black; color: purple;">Tap Goal
-    <a href="/games/taptap.html"></a>
+    <a href="phantom-games.netlify.app/games/taptap.html"></a>
     </button>
   </body>
 </html>
