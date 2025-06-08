@@ -1,3 +1,3 @@
 function openPage() {
-    window.open('phantom-games.netlify.app/yourpage.html', '_blank');
+    window.open('phantom-games.netlify.app/index.html', '_blank');
 }
