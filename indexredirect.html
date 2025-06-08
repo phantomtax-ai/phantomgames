@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open in Blank Page</title>
+    <title>Open Phantom Games</title>
     <style>
         .button-link {
             display: inline-block;
@@ -21,16 +21,30 @@
     </style>
     <script>
         function openBlankPage() {
-            let newTab = window.open("about:blank", "_blank");
+            let newTab = window.open("about:blank", "_blank"); 
             if (newTab) {
                 newTab.document.write(`
                     <!DOCTYPE html>
                     <html>
                     <head>
                         <title>Phantom Games</title>
+                        <style>
+                            html, body {
+                                margin: 0;
+                                padding: 0;
+                                width: 100%;
+                                height: 100%;
+                                overflow: hidden;
+                            }
+                            iframe {
+                                width: 100%;
+                                height: 100%;
+                                border: none;
+                            }
+                        </style>
                     </head>
                     <body>
-                        <iframe src="https://phantom-games.netlify.app" width="100%" height="100%" style="border: none;"></iframe>
+                        <iframe src="https://phantom-games.netlify.app"></iframe>
                     </body>
                     </html>
                 `);
