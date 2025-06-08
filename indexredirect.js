@@ -1,3 +1,4 @@
 function openPage() {
-    window.open('index.html', '_blank');
+    let newTab = window.open('about:blank');
+    newTab.location.href = 'index.html';
 }
