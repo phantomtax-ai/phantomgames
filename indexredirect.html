@@ -1,0 +1,31 @@
+<html>
+  <script>
+function openBlankPage() {
+    let newWin = window.open('about:blank');
+    newWin.document.write(`
+<html>
+  <head>
+    <title style="color: purple">The Phantom Corner</title>
+  </head>
+  <body style="background-color: black">
+    <a href="games/index.html">
+      <button style="font-size: 24px; font-weight: bold; border-radius: 12px; background-color: black; color: purple; height: 200px; width: 1600px;">Games</button>
+    </a>
+    <a href="apps/index.html">
+      <button style="font-size: 24px; font-weight: bold; border-radius: 12px; background-color: black; color: purple; height: 200px; width: 1600px;">Apps</button>  
+    </a>
+    <a href="proxy.html">
+      <button style="font-size: 24px; font-weight: bold; border-radius: 12px; background-color: black; color: purple; height: 200px; width: 1600px;">Proxy</button>
+    </a> 
+    <a href="credits/index.html">
+      <button style="font-size: 24px; font-weight: bold; border-radius: 12px; background-color: black; color: purple; height: 200px; width: 1600px;">Credits</button>
+    </a>
+  </body>
+</html>
+        newWin.document.body.appendChild(script);
+      }
+      window.onload = function() {
+          openBlankPage();
+      }
+    </script>
+</html>
