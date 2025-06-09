@@ -6,6 +6,11 @@
     <title>Proxy Opener</title>
     <script>
         function openProxy(url) {
+            if (!url) {
+                alert("Please enter a valid URL.");
+                return;
+            }
+            
             let newWindow = window.open("about:blank", "_blank");
             if (newWindow) {
                 newWindow.document.write(`
@@ -14,23 +19,24 @@
                             <title>Proxy Window</title>
                             <style>
                                 body { background-color: black; color: purple; text-align: center; padding: 20px; }
+                                iframe { width: 100%; height: 100vh; border: none; }
                             </style>
                         </head>
                         <body>
-                            <h1>Loading...</h1>
-                            <script>
-                                window.location.href = "${url}";
-                            </script>
+                            <iframe src="${url}" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
                         </body>
                     </html>
-<script>                
-`);
+                `);
                 newWindow.document.close();
             } else {
                 alert("Popup blocked! Please allow popups for this site.");
             }
         }
     </script>
+    <style>
+        body { background-color: black; color: purple; text-align: center; padding: 20px; }
+        h2, input, button { color: purple; }
+    </style>
 </head>
 <body>
     <h2>Proxy Opener</h2>
