@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy Opener</title>
+    <script>
+        function openProxy(url) {
+            let newWindow = window.open("about:blank", "_blank");
+            if (newWindow) {
+                newWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Proxy Window</title>
+                            <style>
+                                body { background-color: black; color: purple; text-align: center; padding: 20px; }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>Loading...</h1>
+                            <script>
+                                window.location.href = "${url}";
+                            </script>
+                        </body>
+                    </html>
+                `);
+                newWindow.document.close();
+            } else {
+                alert("Popup blocked! Please allow popups for this site.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Proxy Opener</h2>
+    <input type="text" id="urlInput" placeholder="Enter URL" style="width: 300px;">
+    <button onclick="openProxy(document.getElementById('urlInput').value)">Open Proxy</button>
+</body>
+</html>
