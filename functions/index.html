@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proxy</title>
+    <title>Proxy Browser</title>
     <style>
         body {
             background-color: black;
@@ -48,23 +48,29 @@
     <button id="goButton">Go</button>
 
     <script>
-        document.getElementById("goButton").addEventListener("click", () => {
-            const input = document.getElementById("urlInput").value.trim();
-            if (isValidURL(input)) {
-                window.location.href = `https://phantom-games.netlify.app/.netlify/functions/proxy?url=${encodeURIComponent(input)}`;
-            } else {
-                alert("Please enter a valid URL");
-            }
-        });
-
         function isValidURL(string) {
             try {
-                new URL(string);
-                return true;
+                let formattedURL = string.startsWith("http://") || string.startsWith("https://") 
+                    ? string 
+                    : "https://" + string;
+
+                new URL(formattedURL);
+                return formattedURL; // Return corrected URL
             } catch (error) {
                 return false;
             }
         }
+
+        document.getElementById("goButton").addEventListener("click", () => {
+            let input = document.getElementById("urlInput").value.trim();
+            let validURL = isValidURL(input);
+
+            if (validURL) {
+                window.location.href = `https://your-netlify-site.netlify.app/.netlify/functions/proxy?url=${encodeURIComponent(validURL)}`;
+            } else {
+                alert("Please enter a valid URL.");
+            }
+        });
     </script>
 
 </body>
