@@ -10,15 +10,21 @@ exports.handler = async (event) => {
 
     try {
         const response = await fetch(targetUrl, {
-            headers: { "User-Agent": "Mozilla/5.0" },
+            headers: {
+                "User-Agent": "Mozilla/5.0",
+                "Accept": "*/*"
+            },
         });
 
-        const data = await response.text();
+        const contentType = response.headers.get("content-type");
 
         return {
             statusCode: 200,
-            headers: { "Access-Control-Allow-Origin": "*" },
-            body: data,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": contentType
+            },
+            body: await response.text(),
         };
     } catch (error) {
         return {
