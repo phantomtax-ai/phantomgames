@@ -51,7 +51,7 @@
         document.getElementById("goButton").addEventListener("click", () => {
             const input = document.getElementById("urlInput").value.trim();
             if (isValidURL(input)) {
-                window.location.href = `https://your-netlify-site.netlify.app/.netlify/functions/proxy?url=${encodeURIComponent(input)}`;
+                window.location.href = `https://phantom-games.netlify.app/.netlify/functions/proxy?url=${encodeURIComponent(input)}`;
             } else {
                 alert("Please enter a valid URL");
             }
