@@ -48,26 +48,21 @@
     <button id="goButton">Go</button>
 
     <script>
-        function isValidURL(string) {
-            try {
-                let formattedURL = string.startsWith("http://") || string.startsWith("https://") 
-                    ? string 
-                    : "https://" + string;
-
-                new URL(formattedURL);
-                return formattedURL; // Return corrected URL
-            } catch (error) {
-                return false;
+        function formatURL(string) {
+            if (!string.startsWith("http://") && !string.startsWith("https://")) {
+                return "https://" + string;
             }
+            return string;
         }
 
         document.getElementById("goButton").addEventListener("click", () => {
             let input = document.getElementById("urlInput").value.trim();
-            let validURL = isValidURL(input);
+            let formattedURL = formatURL(input);
 
-            if (validURL) {
-                window.location.href = `https://your-netlify-site.netlify.app/.netlify/functions/proxy?url=${encodeURIComponent(validURL)}`;
-            } else {
+            try {
+                new URL(formattedURL);
+                window.location.href = `https://your-netlify-site.netlify.app/.netlify/functions/proxy?url=${formattedURL}`;
+            } catch (error) {
                 alert("Please enter a valid URL.");
             }
         });
