@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy Browser</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        #urlInput {
+            width: 300px;
+            padding: 10px;
+            border: 2px solid purple;
+            background-color: black;
+            color: purple;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #goButton {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: black;
+            color: purple;
+            border: 2px solid purple;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #goButton:hover {
+            background-color: purple;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="urlInput" placeholder="Enter URL">
+    <button id="goButton">Go</button>
+
+    <script>
+        document.getElementById("goButton").addEventListener("click", () => {
+            const input = document.getElementById("urlInput").value.trim();
+            if (isValidURL(input)) {
+                window.location.href = `https://your-netlify-site.netlify.app/.netlify/functions/proxy?url=${encodeURIComponent(input)}`;
+            } else {
+                alert("Please enter a valid URL");
+            }
+        });
+
+        function isValidURL(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+    </script>
+
+</body>
+</html>
