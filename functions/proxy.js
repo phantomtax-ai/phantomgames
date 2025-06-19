@@ -8,11 +8,20 @@ exports.handler = async (event) => {
         };
     }
 
-    // ✅ Domain allowlist
+    // ✅ Allowlist domains
     const allowedDomains = ["example.com", "wikipedia.org", "mozilla.org"];
-    const parsedUrl = new URL(targetUrl);
-    const hostname = parsedUrl.hostname.toLowerCase();
+    let parsedUrl;
 
+    try {
+        parsedUrl = new URL(targetUrl);
+    } catch (err) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: "Invalid URL" }),
+        };
+    }
+
+    const hostname = parsedUrl.hostname.toLowerCase();
     const isAllowed = allowedDomains.some(domain =>
         hostname === domain || hostname.endsWith(`.${domain}`)
     );
@@ -33,9 +42,11 @@ exports.handler = async (event) => {
             }
         });
 
+        // 🚦 Handle HTTP redirects
         if (response.status >= 300 && response.status < 400) {
             const location = response.headers.get("location");
             const absolute = new URL(location, targetUrl).href;
+
             return {
                 statusCode: 302,
                 headers: {
@@ -47,10 +58,15 @@ exports.handler = async (event) => {
         const contentType = response.headers.get("content-type") || "";
         let body = await response.text();
 
+        // 🔗 Rewrite HTML links to keep navigation inside the proxy
         if (contentType.includes("text/html")) {
-            body = body.replace(/href="(.*?)"/g, (match, href) => {
-                const absolute = new URL(href, targetUrl).href;
-                return `href="/.netlify/functions/proxy?url=${encodeURIComponent(absolute)}"`;
+            body = body.replace(/href=["']([^"']+)["']/g, (match, href) => {
+                try {
+                    const absolute = new URL(href, targetUrl).href;
+                    return `href="/.netlify/functions/proxy?url=${encodeURIComponent(absolute)}"`;
+                } catch {
+                    return match; // Leave it untouched if invalid
+                }
             });
         }
 
@@ -60,12 +76,15 @@ exports.handler = async (event) => {
                 "Access-Control-Allow-Origin": "*",
                 "Content-Type": contentType
             },
-            body,
+            body
         };
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: "Failed to fetch data", details: error.message }),
+            body: JSON.stringify({
+                error: "Failed to fetch data",
+                details: error.message
+            }),
         };
     }
 };
